@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-class Reports {
+class Report {
 
     /**
      * attributes - id separated
@@ -14,7 +14,7 @@ class Reports {
 
     @Id
     @GeneratedValue
-    private var reportId: Long = 0
+    private var reportId: Long? = 0
 
     /**
      * attributes - other attributes
@@ -23,8 +23,8 @@ class Reports {
     private var reportType: String = ""
     private var stationName: String = ""
     private var transportType: String = ""
-    private var Latitude: Double = 0.0
-    private var Longitude: Double = 0.0
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
     private lateinit var reportDate: Date
     private lateinit var reportDateUntil: Date
     private var reporterName: String = ""
@@ -32,12 +32,13 @@ class Reports {
     /**
      * getter-setter section
      */
+    fun getReportId(): Long?{ return reportId }
+    fun setReportId(id: Long?) { reportId = id }
 
-    fun getReportId(): Long{ return reportId }
     fun getStationName(): String { return stationName }
     fun getTransportType(): String { return transportType }
-    fun getLatitude(): Double { return Latitude }
-    fun getLongitude(): Double { return Longitude }
+    fun getLatitude(): Double { return latitude }
+    fun getLongitude(): Double { return longitude }
     fun getReportDate(): Date { return reportDate }
     fun getReportDateUntil(): Date { return reportDateUntil }
     fun getReporterName(): String { return reporterName }
