@@ -37,6 +37,7 @@ class Report {
 
     fun getStationName(): String { return stationName }
     fun getTransportType(): String { return transportType }
+    fun getReportType(): String { return reportType }
     fun getLatitude(): Double { return latitude }
     fun getLongitude(): Double { return longitude }
     fun getReportDate(): Date { return reportDate }
