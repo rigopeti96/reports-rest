@@ -14,24 +14,24 @@ class ReportController {
     private lateinit var reportRepository: ReportRepository
 
     @GetMapping
-    fun getAll(): List<Report?>? = reportRepository.findAll()
+    fun getAll(): List<Report> = reportRepository.findAll()
 
     @GetMapping("{id}")
     fun getById(@PathVariable id: Long): Report = reportRepository.findById(id)
 
     @PostMapping
-    fun create(@RequestBody Report: Report): Report? {
-        Report.Id = null
-        return reportRepository.save(Report)
+    fun create(@RequestBody report: Report): Report {
+        report.id = null
+        return reportRepository.save(report)
     }
 
     @PutMapping
-    fun update(@RequestBody Report: Report): Report? = reportRepository.save(Report)!!
+    fun update(@RequestBody Report: Report): Report = reportRepository.save(Report)
 
     @DeleteMapping("{id}")
     fun delete(@PathVariable id: Long): ResponseEntity<*>? {
         val report: Report = reportRepository.findById(id)
-        return if (report == null) ResponseEntity.notFound().build<Any>() else {
+        return run {
             reportRepository.deleteById(id)
             ResponseEntity.ok().build<Any>()
         }

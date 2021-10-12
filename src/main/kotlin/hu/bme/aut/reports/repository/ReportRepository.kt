@@ -11,18 +11,18 @@ import javax.persistence.PersistenceContext
 open class ReportRepository {
 
     @PersistenceContext
-    private val em: EntityManager? = null
+    private lateinit var em: EntityManager
 
     @Transactional
-    open fun save(feedback: Report?): Report? = em!!.merge(feedback)
+    open fun save(feedback: Report): Report = em.merge(feedback)
 
-    fun findAll(): List<Report?>? = em!!.createQuery("SELECT r FROM Report r", Report::class.java).resultList
+    fun findAll(): List<Report> = em.createQuery("SELECT r FROM Report r", Report::class.java).resultList
 
-    fun findById(id: Long): Report = em!!.find(Report::class.java, id)
+    fun findById(id: Long): Report = em.find(Report::class.java, id)
 
     @Transactional
     open fun deleteById(id: Long) {
         val todo: Report = findById(id)
-        em!!.remove(todo)
+        em.remove(todo)
     }
 }
