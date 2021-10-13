@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/reports")
 class ReportController {
-
     @Autowired
-    private lateinit var reportRepository: ReportRepository
+    private var reportRepository: ReportRepository = ReportRepository()
 
     @GetMapping
     fun getAll(): List<Report> = reportRepository.findAll()
