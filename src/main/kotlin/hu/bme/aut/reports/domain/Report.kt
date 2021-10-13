@@ -1,6 +1,7 @@
 package hu.bme.aut.reports.domain
 
 import org.hibernate.Hibernate
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -15,7 +16,11 @@ data class Report(
     var transportType: String,
     var latitude: Double,
     var longitude: Double,
-    var reportDate: Date,
-    var reportDateUntil: Date,
+    var reportDate: LocalDateTime,
+    var reportDateUntil: LocalDateTime,
     var reporterName: String
-)
+) {
+    constructor() : this(null, "", "", "", 0.0, 0.0, LocalDateTime.now(), LocalDateTime.now(), "") {
+
+    }
+}
