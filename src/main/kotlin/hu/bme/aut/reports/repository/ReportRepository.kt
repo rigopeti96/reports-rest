@@ -4,30 +4,33 @@ import hu.bme.aut.reports.domain.Report
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 
 @Repository
-class ReportRepository {
+open class ReportRepository {
     @PersistenceContext
-    private lateinit var em: EntityManager
+    private val em: Any = Object()
     @Transactional
-    fun save(feedback: Report): Report {
-        return em.merge(feedback)
-    }
-
-    fun findAll(): List<Report> {
-        return em.createQuery("SELECT r FROM Report r", Report::class.java).getResultList()
-    }
-
-    fun findById(id: Long): Report {
-        return em.find(Report::class.java, id)
+    open fun save(feedback: Report): Report {
+        return (em as EntityManager).merge(feedback)
     }
 
     @Transactional
-    fun deleteById(id: Long) {
+    open fun findAll(): List<Report> {
+        return (em as EntityManager).createQuery("SELECT r FROM Report r", Report::class.java).resultList
+    }
+
+    @Transactional
+    open fun findById(id: Long): Report {
+        return (em as EntityManager).find(Report::class.java, id)
+    }
+
+    @Transactional
+    open fun deleteById(id: Long) {
         val report: Report = findById(id)
-        em.remove(report)
+        (em as EntityManager).remove(report)
     }
 }
