@@ -15,7 +15,7 @@ data class Report(
     //var reportDateUntil: LocalDateTime,
     var reporterName: String
 ) {
-    constructor() : this(0, "", "", "", 0.0, 0.0, /*LocalDateTime.now(), LocalDateTime.now(),*/ "")
+    constructor() : this(null, "", "", "", 0.0, 0.0, /*LocalDateTime.now(), LocalDateTime.now(),*/ "")
 
     override fun hashCode(): Int {
         val prime = 31
