@@ -13,27 +13,15 @@ class UserDetailsImpl(private val user: User): UserDetails {
             .collect(Collectors.toList())
     }
 
-    override fun getPassword(): String {
-        return user.getPassword()
-    }
+    override fun getPassword(): String = user.getPassword()
 
-    override fun getUsername(): String {
-        return user.getName()
-    }
+    override fun getUsername(): String = user.getName()
 
-    override fun isAccountNonExpired(): Boolean {
-        return true
-    }
+    override fun isAccountNonExpired(): Boolean = true
 
-    override fun isAccountNonLocked(): Boolean {
-        return true
-    }
+    override fun isAccountNonLocked(): Boolean = true
 
-    override fun isCredentialsNonExpired(): Boolean {
-        return true
-    }
+    override fun isCredentialsNonExpired(): Boolean = true
 
-    override fun isEnabled(): Boolean {
-        return user.isEnabled()
-    }
+    override fun isEnabled(): Boolean = user.isEnabled()
 }

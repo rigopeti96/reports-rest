@@ -1,5 +1,6 @@
 package hu.aut.bme.report_rest_springdata
 
+import hu.aut.bme.report_rest_springdata.data.HelloResponse
 import hu.aut.bme.report_rest_springdata.data.Report
 import hu.aut.bme.report_rest_springdata.data.ReportRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,11 +29,16 @@ class ReportController {
     }
 
     @GetMapping("/hello")
-    fun hello(): String {
-        return "hello"
+    fun hello(): HelloResponse {
+        return HelloResponse("hello")
     }
 
-    @PostMapping
+    @GetMapping("/getAllReports")
+    fun getAllReports(principal: Principal?): List<Report?>?{
+        return reportRepository.findPosts()
+    }
+
+    @PostMapping("/postReport")
     fun create(@RequestBody report: Report): Report{
         println(report.id.toString())
         return reportRepository.save(report)

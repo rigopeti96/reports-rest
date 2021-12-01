@@ -1,13 +1,16 @@
 package hu.aut.bme.report_rest_springdata
 
+import hu.aut.bme.report_rest_springdata.data.HelloResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.annotation.Secured
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
 
 @RestController
+@RequestMapping("/api/user")
 class HelloController {
     // User data
     @GetMapping("/me")
@@ -17,8 +20,8 @@ class HelloController {
 
     // Can be called by anyone
     @GetMapping("/hello")
-    fun hello(): String {
-        return "hello"
+    fun hello(): HelloResponse {
+        return HelloResponse("hello")
     }
 
     // Can be called by authenticated user

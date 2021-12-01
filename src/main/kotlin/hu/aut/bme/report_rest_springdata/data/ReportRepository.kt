@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 interface ReportRepository : JpaRepository<Report?, Int?> {
     //public List<Report> findAllByContentContains(String str);
     @Query("SELECT bp FROM Report bp")
-    fun findPostsWhoseTitleStartsWithM(): List<Report?>?
+    fun findPosts(): List<Report?>?
 }
