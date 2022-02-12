@@ -15,32 +15,43 @@ import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
 import java.util.*
 
+/**
+ * A felhasználói végpontokat összefogó osztály
+ */
 @RestController
 @RequestMapping("/api/user")
 class HelloController {
     @Autowired
     private lateinit var userRepository: UserRepository
 
-    // User data
+    /**
+     * Felhasználói adatok lekérése
+     */
     @GetMapping("/me")
     fun userData(principal: Principal?): ResponseEntity<Principal> {
         return ResponseEntity(principal, HttpStatus.OK)
     }
 
-    // Can be called by anyone
+    /**
+     * Kapcsolat ellenőrzése; DEBUG funkció
+     */
     @GetMapping("/hello")
     fun hello(): HelloResponse {
         return HelloResponse("hello")
     }
 
-    // Can be called by authenticated user
+    /**
+     * A bejelentkezett felhasználók által hívható kapcsolat ellenőrzése; DEBUG funkció
+     */
     @PostMapping("/auth_hello")
     fun authHello(principal: Principal): Optional<User?> {
         println(principal.name.toString())
         return userRepository.findById(principal.name)
     }
 
-    // Can be called by admins only
+    /**
+     * A bejelentkezett admin felhasználók által hívható kapcsolat ellenőrzése; DEBUG funkció
+     */
     @GetMapping("/admin_hello")
     @Secured("ROLE_ADMIN")
     fun adminHello(): String {

@@ -9,6 +9,9 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * Sikeres kijelentkezés kezelése
+ */
 class LogoutSuccessHandler : SimpleUrlLogoutSuccessHandler() {
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
 

@@ -33,11 +33,18 @@ class ReportRestSpringdataApplication: CommandLineRunner{
         // LazyInitializationException!
         jill.getPosts().forEach(System.out::println);*/
 
+        /**
+         * Dummy felhasználó létrehozása
+         */
         val user = User("demo", passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
         /*user.setName("demo")
         user.setPassword((passwordEncoder as PasswordEncoder).encode("demo"))
         user.setEnabled(true)
         user.setRoles(List.of("ROLE_USER"))*/
+
+        /**
+         * Dummy admin felhasználó létrehozása
+         */
         val admin = User("admin", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
         /*admin.setName("admin")
         admin.setPassword(passwordEncoder.encode("admin"))
@@ -48,6 +55,9 @@ class ReportRestSpringdataApplication: CommandLineRunner{
 
 }
 
+/**
+ * Indítási pont
+ */
 fun main(args: Array<String>) {
     runApplication<ReportRestSpringdataApplication>(*args)
 }

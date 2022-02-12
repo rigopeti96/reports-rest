@@ -2,7 +2,9 @@ package hu.aut.bme.report_rest_springdata.users
 
 import javax.persistence.*
 
-
+/**
+ * Felhasználókat reprezentáló adatosztály
+ */
 @Entity
 class User(
     //@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,

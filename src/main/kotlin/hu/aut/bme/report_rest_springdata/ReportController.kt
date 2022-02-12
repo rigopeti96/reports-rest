@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
+/**
+ * Report végpontokat összefogó osztály
+ */
 @RestController
 @RequestMapping("/api/reports")
 class ReportController {
@@ -16,34 +19,50 @@ class ReportController {
     @Autowired
     private lateinit var reportRepository: ReportRepository
 
-    // User data
+    /**
+     * Felhasználó adatainak lekérése
+     */
     @GetMapping("/me")
     fun userData(principal: Principal?): ResponseEntity<Principal> {
         return ResponseEntity(principal, HttpStatus.OK)
     }
 
-    // User data
+    /**
+     * Bejelentő adatainak lekérése
+     */
     @GetMapping("/reporterName")
     fun reporterName(principal: Principal?): String {
         return "Reporter: " + principal?.name
     }
 
+    /**
+     * Kapcsolat ellenőrzése; DEBUG funkció
+     */
     @GetMapping("/hello")
     fun hello(): HelloResponse {
         return HelloResponse("hello")
     }
 
+    /**
+     * Összes bejelentés lekérése
+     */
     @GetMapping("/getAllReports")
     fun getAllReports(principal: Principal?): List<Report?>?{
         return reportRepository.findPosts()
     }
 
+    /**
+     * Bejegyzés létrehozása és mentése
+     */
     @PostMapping("/postReport")
     fun create(@RequestBody report: Report): Report{
         println(report.id.toString())
         return reportRepository.save(report)
     }
 
+    /**
+     * Bejegyzés módosítása
+     */
     @PutMapping
     fun update(@RequestBody report: Report): Report = reportRepository.save(report)
 }

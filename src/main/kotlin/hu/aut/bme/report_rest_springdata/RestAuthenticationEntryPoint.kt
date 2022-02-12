@@ -10,6 +10,9 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * Felhasználó azonosítására szolgáló belépési pont
+ */
 @Component
 class RestAuthenticationEntryPoint : BasicAuthenticationEntryPoint() {
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()

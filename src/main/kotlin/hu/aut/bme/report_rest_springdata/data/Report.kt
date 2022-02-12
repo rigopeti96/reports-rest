@@ -3,6 +3,9 @@ package hu.aut.bme.report_rest_springdata.data
 import java.time.LocalDateTime
 import javax.persistence.*
 
+/**
+ * Bejegyzéseket reprezentáló adatosztály
+ */
 @Entity
 data class Report(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Int? = null,
