@@ -47,8 +47,8 @@ class ReportController {
      * Összes bejelentés lekérése
      */
     @GetMapping("/getAllReports")
-    fun getAllReports(principal: Principal?): List<Report?>?{
-        return reportRepository.findPosts()
+    fun getAllReports(principal: Principal?): List<Report?>{
+        return reportRepository.findAll()
     }
 
     /**

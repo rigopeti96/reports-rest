@@ -111,15 +111,14 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <version>${kotlin.version}</version>
                 <configuration>
                     <compilerPlugins>
-                        <plugin>no-arg</plugin>
+                        <plugin>jpa</plugin>
                     </compilerPlugins>
-
                     <pluginOptions>
                         <option>no-arg:annotation=com.my.Annotation</option>
                     </pluginOptions>
@@ -128,10 +127,10 @@
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-noarg</artifactId>
-                        <version>${kotlin.version}</version>
+                        <version>1.6.20-M1</version>
                     </dependency>
                 </dependencies>
-            </plugin-->
+            </plugin>
         </plugins>
     </build>
 
