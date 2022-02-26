@@ -1,4 +1,4 @@
-package hu.aut.bme.report_rest_springdata.data
+package hu.aut.bme.report_rest_springdata.reports
 
 /**
  * A kapcsolat ellenrőzésére szolgáló üzenet reprezentációja; DEBUG funkció

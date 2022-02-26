@@ -1,22 +1,21 @@
 package hu.aut.bme.report_rest_springdata.users
 
+import net.bytebuddy.implementation.bind.MethodDelegationBinder
 import javax.persistence.*
 
 /**
  * Felhasználókat reprezentáló adatosztály
  */
 @Entity
-class User(
-    //@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
-    @Id private val name: String,
+data class User(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
+    private val name: String,
     private val password: String,
     private val enabled: Boolean,
     @ElementCollection(fetch = FetchType.EAGER)
-    private val roles: List<String?>?
+    private val roles: List<String>?
 ) {
-    val ROLE_ADMIN = "ROLE_ADMIN"
-
-    constructor() : this("", "", false, null) {
+    constructor() : this(0, "", "", false, null) {
 
     }
 
@@ -39,5 +38,9 @@ class User(
         val other: User = obj as User
         if (name != other.name) return false
         return true
+    }
+
+    companion object{
+        const val ROLE_ADMIN = "ROLE_ADMIN"
     }
 }

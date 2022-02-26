@@ -25,16 +25,15 @@ import java.util.List
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Autowired
-    private val restAuthenticationEntryPoint: RestAuthenticationEntryPoint? = null
+    private lateinit var restAuthenticationEntryPoint: RestAuthenticationEntryPoint
 
     @Autowired
-    private val userDetailsService: UserDetailsService? = null
-    @Throws(Exception::class)
+    private lateinit var userDetailsService: UserDetailsService
+
     public override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetailsService)
     }
 
-    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http
             .cors().and()
@@ -50,17 +49,15 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = List.of("*")
-        configuration.allowedMethods = List.of("GET", "POST", "PUT", "DELETE")
+        configuration.allowedOrigins = listOf("*")
+        configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE")
         configuration.allowCredentials = true
-        configuration.allowedHeaders = List.of("Authorization", "Cache-Control", "Content-Type")
+        configuration.allowedHeaders = listOf("Authorization", "Cache-Control", "Content-Type")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
     }
 
     @Bean
-    fun encoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
+    fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
 }

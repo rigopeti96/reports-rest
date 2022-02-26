@@ -1,9 +1,8 @@
-package hu.aut.bme.report_rest_springdata
+package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.data.HelloResponse
-import hu.aut.bme.report_rest_springdata.data.ReportRepository
+import hu.aut.bme.report_rest_springdata.reports.HelloResponse
 import hu.aut.bme.report_rest_springdata.users.User
-import hu.aut.bme.report_rest_springdata.users.UserRepository
+import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

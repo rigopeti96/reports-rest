@@ -1,8 +1,8 @@
-package hu.aut.bme.report_rest_springdata
+package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.data.HelloResponse
-import hu.aut.bme.report_rest_springdata.data.Report
-import hu.aut.bme.report_rest_springdata.data.ReportRepository
+import hu.aut.bme.report_rest_springdata.reports.HelloResponse
+import hu.aut.bme.report_rest_springdata.reports.Report
+import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,7 +23,7 @@ class ReportController {
      * Felhasználó adatainak lekérése
      */
     @GetMapping("/me")
-    fun userData(principal: Principal?): ResponseEntity<Principal> {
+    fun userData(principal: Principal): ResponseEntity<Principal> {
         return ResponseEntity(principal, HttpStatus.OK)
     }
 
@@ -55,10 +55,7 @@ class ReportController {
      * Bejegyzés létrehozása és mentése
      */
     @PostMapping("/postReport")
-    fun create(@RequestBody report: Report): Report{
-        println(report.id.toString())
-        return reportRepository.save(report)
-    }
+    fun create(@RequestBody report: Report): Report = reportRepository.save(report)
 
     /**
      * Bejegyzés módosítása

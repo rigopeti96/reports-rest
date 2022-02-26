@@ -1,6 +1,5 @@
-package hu.aut.bme.report_rest_springdata.data
+package hu.aut.bme.report_rest_springdata.reports
 
-import java.time.LocalDateTime
 import javax.persistence.*
 
 /**
@@ -8,15 +7,15 @@ import javax.persistence.*
  */
 @Entity
 data class Report(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Int? = null,
-    var reportType: String,
-    var stationName: String,
-    var transportType: String,
-    var latitude: Double,
-    var longitude: Double,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Int? = null,
+    val reportType: String,
+    val stationName: String,
+    val transportType: String,
+    val latitude: Double,
+    val longitude: Double,
     //var reportDate: LocalDateTime,
     //var reportDateUntil: LocalDateTime,
-    var reporterName: String
+    val reporterName: String
 ) {
     constructor() : this(null, "", "", "", 0.0, 0.0, /*LocalDateTime.now(), LocalDateTime.now(),*/ "")
 

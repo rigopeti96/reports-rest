@@ -8,7 +8,7 @@ import java.util.stream.Collectors
 class UserDetailsImpl(private val user: User): UserDetails {
     private val serialVersionUID = 1L
 
-    override fun getAuthorities(): Collection<GrantedAuthority?>? {
+    override fun getAuthorities(): Collection<GrantedAuthority>? {
         return user.getRoles()!!.stream().map { role: String? -> SimpleGrantedAuthority(role) }
             .collect(Collectors.toList())
     }

@@ -1,8 +1,8 @@
 package hu.aut.bme.report_rest_springdata
 
-import hu.aut.bme.report_rest_springdata.data.ReportRepository
+import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.users.User
-import hu.aut.bme.report_rest_springdata.users.UserRepository
+import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -20,7 +20,6 @@ class ReportRestSpringdataApplication: CommandLineRunner{
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
-    @Throws(Exception::class)
     override fun run(vararg args: String?) {
         /*val pageable: Pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "creationDate")
         val page: Page<Report?> = reportRepository.findAll(pageable)
@@ -36,7 +35,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
         /**
          * Dummy felhasználó létrehozása
          */
-        val user = User("demo", passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
+        val user = User(null, "demo", passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
         /*user.setName("demo")
         user.setPassword((passwordEncoder as PasswordEncoder).encode("demo"))
         user.setEnabled(true)
@@ -45,7 +44,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
         /**
          * Dummy admin felhasználó létrehozása
          */
-        val admin = User("admin", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
+        val admin = User(null, "admin", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
         /*admin.setName("admin")
         admin.setPassword(passwordEncoder.encode("admin"))
         admin.setEnabled(true)

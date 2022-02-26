@@ -1,5 +1,6 @@
-package hu.aut.bme.report_rest_springdata.users
+package hu.aut.bme.report_rest_springdata.repository
 
+import hu.aut.bme.report_rest_springdata.users.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
@@ -7,4 +8,4 @@ import org.springframework.stereotype.Repository
  * Felhasználók lekérdezéseit generáló interface
  */
 @Repository
-interface UserRepository : JpaRepository<User?, String?>
+interface UserRepository : JpaRepository<User, String>
