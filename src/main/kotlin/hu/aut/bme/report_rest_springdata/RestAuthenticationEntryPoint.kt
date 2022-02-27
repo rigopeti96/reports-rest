@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * Felhasználó azonosítására szolgáló belépési pont
+ * User authentication entry point
  */
 @Component
 class RestAuthenticationEntryPoint : BasicAuthenticationEntryPoint() {
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
 
-    @Throws(IOException::class, ServletException::class)
     override fun commence(request: HttpServletRequest, response: HttpServletResponse, authEx: AuthenticationException) {
         val authHeader = String.format("Auth realm=\"%s\"", realmName)
         response.addHeader("WWW-Authenticate", authHeader)
@@ -28,7 +27,6 @@ class RestAuthenticationEntryPoint : BasicAuthenticationEntryPoint() {
         response.writer.write(json)
     }
 
-    @Throws(Exception::class)
     override fun afterPropertiesSet() {
         realmName = "hu.bme.aut"
         super.afterPropertiesSet()

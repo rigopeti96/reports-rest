@@ -3,11 +3,11 @@ package hu.aut.bme.report_rest_springdata.reports
 import javax.persistence.*
 
 /**
- * Bejegyzéseket reprezentáló adatosztály
+ * Report representation class
  */
 @Entity
 data class Report(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Int? = null,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
     val reportType: String,
     val stationName: String,
     val transportType: String,

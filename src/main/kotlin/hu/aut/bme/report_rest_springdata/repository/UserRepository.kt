@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 /**
- * Felhasználók lekérdezéseit generáló interface
+ * Interface for users
  */
 @Repository
 interface UserRepository : JpaRepository<User, String>

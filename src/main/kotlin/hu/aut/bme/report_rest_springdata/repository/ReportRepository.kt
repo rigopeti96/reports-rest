@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 /**
- * A bejegyzések lekérdezéért felelős interface
+ * Interface for reports
  */
 @Repository
 interface ReportRepository : JpaRepository<Report, Long>

@@ -10,7 +10,7 @@ import org.springframework.boot.runApplication
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootApplication
-class ReportRestSpringdataApplication: CommandLineRunner{
+open class ReportRestSpringdataApplication: CommandLineRunner{
     @Autowired
     private lateinit var reportRepository: ReportRepository
 
@@ -33,7 +33,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
         jill.getPosts().forEach(System.out::println);*/
 
         /**
-         * Dummy felhasználó létrehozása
+         * Dummy user creation
          */
         val user = User(null, "demo", passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
         /*user.setName("demo")
@@ -42,7 +42,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
         user.setRoles(List.of("ROLE_USER"))*/
 
         /**
-         * Dummy admin felhasználó létrehozása
+         * Dummy admin user creation
          */
         val admin = User(null, "admin", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
         /*admin.setName("admin")
@@ -55,7 +55,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
 }
 
 /**
- * Indítási pont
+ * Entry point
  */
 fun main(args: Array<String>) {
     runApplication<ReportRestSpringdataApplication>(*args)

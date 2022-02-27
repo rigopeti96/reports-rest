@@ -18,12 +18,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.util.List
 
 /**
- * Biztonsági konfiguráció megvalósítása
+ * Security configuration settings
  */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+open class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Autowired
     private lateinit var restAuthenticationEntryPoint: RestAuthenticationEntryPoint
 
@@ -47,7 +47,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    fun corsConfigurationSource(): CorsConfigurationSource {
+    open fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = listOf("*")
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE")
@@ -59,5 +59,5 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
+    open fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
 }

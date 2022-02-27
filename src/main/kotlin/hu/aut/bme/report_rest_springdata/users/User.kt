@@ -4,12 +4,12 @@ import net.bytebuddy.implementation.bind.MethodDelegationBinder
 import javax.persistence.*
 
 /**
- * Felhasználókat reprezentáló adatosztály
+ * User-representation class
  */
 @Entity
 data class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
-    private val name: String,
+    @Column(unique = true) private val name: String,
     private val password: String,
     private val enabled: Boolean,
     @ElementCollection(fetch = FetchType.EAGER)
@@ -22,7 +22,7 @@ data class User(
     fun getName(): String = name
     fun getPassword(): String = password
     fun isEnabled(): Boolean = enabled
-    fun getRoles(): List<String?>? = roles
+    fun getRoles(): List<String>? = roles
 
     override fun hashCode(): Int {
         val prime = 31
