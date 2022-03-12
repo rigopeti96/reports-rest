@@ -37,6 +37,31 @@ class ReportController {
     }
 
     /**
+     * Get reports based on the phone's actual position and radius
+     */
+    /*@GetMapping("/getReportsByCoord")
+    fun getReporstByCoords(actLat: Double, actLon: Double, radius: Double)
+    : List<Report?>{
+            val distanceInMeter: Float
+            val loc1 = Location("")
+            loc1.latitude = pointLat
+            loc1.longitude = pointLong
+
+            val loc2 = Location("")
+            loc2.latitude = actualLat
+            loc2.longitude = actualLong
+
+            distanceInMeter = loc1.distanceTo(loc2)
+
+        return reportRepository.getReportByLatitudeBetweenAndLongitudeBetweenOrderById(
+            latmin,
+            latmax,
+            lonmin,
+            lonmax
+        )
+    }*/
+
+    /**
      * Create and save report
      * @param report: Newly created report from user's client
      * @return report saved

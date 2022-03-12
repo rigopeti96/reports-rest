@@ -1,5 +1,6 @@
 package hu.aut.bme.report_rest_springdata.reports
 
+import java.time.LocalDateTime
 import javax.persistence.*
 
 /**
@@ -13,12 +14,11 @@ data class Report(
     val transportType: String,
     val latitude: Double,
     val longitude: Double,
-    //var reportDate: LocalDateTime,
-    //var reportDateUntil: LocalDateTime,
-    val reporterName: String
+    val reportDate: LocalDateTime,
+    var reportDateUntil: LocalDateTime,
+    val reporterName: String,
+    var modifierName: String
 ) {
-    constructor() : this(null, "", "", "", 0.0, 0.0, /*LocalDateTime.now(), LocalDateTime.now(),*/ "")
-
     override fun hashCode(): Int {
         val prime = 31
         var result = 1
@@ -33,5 +33,10 @@ data class Report(
         val (id1) = obj as Report
         if (id != id1) return false
         return true
+    }
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id , reportType = $reportType , stationName = $stationName , transportType = $transportType , latitude = $latitude , longitude = $longitude , reporterName = $reporterName )"
     }
 }

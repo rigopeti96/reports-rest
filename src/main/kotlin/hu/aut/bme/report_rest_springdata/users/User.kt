@@ -2,7 +2,6 @@ package hu.aut.bme.report_rest_springdata.users
 
 import net.bytebuddy.implementation.bind.MethodDelegationBinder
 import javax.persistence.*
-
 /**
  * User-representation class
  */
@@ -10,16 +9,14 @@ import javax.persistence.*
 data class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
     @Column(unique = true) private val name: String,
+    @Column(unique = true) private val nickName: String,
     private val password: String,
     private val enabled: Boolean,
     @ElementCollection(fetch = FetchType.EAGER)
     private val roles: List<String>?
 ) {
-    constructor() : this(0, "", "", false, null) {
-
-    }
-
     fun getName(): String = name
+    fun getNickName(): String = nickName
     fun getPassword(): String = password
     fun isEnabled(): Boolean = enabled
     fun getRoles(): List<String>? = roles
@@ -42,5 +39,10 @@ data class User(
 
     companion object{
         const val ROLE_ADMIN = "ROLE_ADMIN"
+    }
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id , name = $name , nickname = $nickName , password = $password , enabled = $enabled , roles = $roles )"
     }
 }

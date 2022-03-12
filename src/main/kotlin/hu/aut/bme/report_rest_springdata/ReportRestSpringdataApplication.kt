@@ -35,7 +35,7 @@ open class ReportRestSpringdataApplication: CommandLineRunner{
         /**
          * Dummy user creation
          */
-        val user = User(null, "demo", passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
+        val user = User(null, "demo", "demoMan" ,passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
         /*user.setName("demo")
         user.setPassword((passwordEncoder as PasswordEncoder).encode("demo"))
         user.setEnabled(true)
@@ -44,7 +44,7 @@ open class ReportRestSpringdataApplication: CommandLineRunner{
         /**
          * Dummy admin user creation
          */
-        val admin = User(null, "admin", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
+        val admin = User(null, "admin", "Adminator", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
         /*admin.setName("admin")
         admin.setPassword(passwordEncoder.encode("admin"))
         admin.setEnabled(true)
