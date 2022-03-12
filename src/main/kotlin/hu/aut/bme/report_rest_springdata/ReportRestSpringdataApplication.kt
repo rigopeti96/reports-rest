@@ -32,24 +32,12 @@ open class ReportRestSpringdataApplication: CommandLineRunner{
         // LazyInitializationException!
         jill.getPosts().forEach(System.out::println);*/
 
-        /**
-         * Dummy user creation
-         */
         val user = User(null, "demo", "demoMan" ,passwordEncoder.encode("demo"), true, listOf("ROLE_USER"))
         /*user.setName("demo")
         user.setPassword((passwordEncoder as PasswordEncoder).encode("demo"))
         user.setEnabled(true)
         user.setRoles(List.of("ROLE_USER"))*/
-
-        /**
-         * Dummy admin user creation
-         */
-        val admin = User(null, "admin", "Adminator", passwordEncoder.encode("admin"), true, listOf("ROLE_ADMIN"))
-        /*admin.setName("admin")
-        admin.setPassword(passwordEncoder.encode("admin"))
-        admin.setEnabled(true)
-        admin.setRoles(List.of("ROLE_ADMIN"))*/
-        repository.saveAll(listOf(user, admin))
+        repository.saveAll(listOf(user))
     }
 
 }
