@@ -37,7 +37,7 @@ open class ReportRestSpringdataApplication: CommandLineRunner{
         user.setPassword((passwordEncoder as PasswordEncoder).encode("demo"))
         user.setEnabled(true)
         user.setRoles(List.of("ROLE_USER"))*/
-        repository.saveAll(listOf(user))
+        //repository.saveAll(listOf(user))
     }
 
 }

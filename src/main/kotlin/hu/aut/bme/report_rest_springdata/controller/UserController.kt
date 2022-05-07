@@ -6,6 +6,7 @@ import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 import java.time.DayOfWeek
@@ -24,6 +25,14 @@ class UserController {
 
     @Autowired
     private lateinit var reportRepository: ReportRepository
+
+    @Autowired
+    private lateinit var jdbcTemplate: JdbcTemplate
+
+    @GetMapping("/hello")
+    fun hello(): String{
+        return "hello"
+    }
 
     /**
      * Get user data

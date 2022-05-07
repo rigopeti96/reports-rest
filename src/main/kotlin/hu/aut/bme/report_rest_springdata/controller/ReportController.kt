@@ -3,6 +3,7 @@ package hu.aut.bme.report_rest_springdata.controller
 import hu.aut.bme.report_rest_springdata.reports.Report
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
@@ -15,6 +16,9 @@ class ReportController {
 
     @Autowired
     private lateinit var reportRepository: ReportRepository
+
+    @Autowired
+    private lateinit var jdbcTemplate: JdbcTemplate
 
     /**
      * Get reporter name
