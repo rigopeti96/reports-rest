@@ -2,6 +2,8 @@ package hu.aut.bme.report_rest_springdata.controller
 
 import hu.aut.bme.report_rest_springdata.reports.Report
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
+import hu.aut.bme.report_rest_springdata.request.LocationRequest
+import hu.aut.bme.report_rest_springdata.station.Location
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.web.bind.annotation.*
@@ -38,6 +40,25 @@ class ReportController {
     @GetMapping("/getAllReports")
     fun getAllReports(principal: Principal?): List<Report?>{
         return reportRepository.findAll()
+    }
+
+    /**
+     * Get all reports from database
+     * @param principal: reporter user data
+     * @return list of reports
+     */
+    @GetMapping("/getAllReportsByDistance")
+    fun getAllReportsByDistance(principal: Principal?, reportRequest: LocationRequest): List<Report?>{
+        val reports = reportRepository.findAll()
+        val responseReports = ArrayList<Report>()
+
+        for(i in 0 until reports.size){
+            val location = Location(reports[i].latitude, reports[i].longitude)
+            if(DistanceCalculator.calcDistance(location, reportRequest) <= reportRequest.distance){
+                responseReports.add(reports[i])
+            }
+        }
+        return responseReports
     }
 
     /**
