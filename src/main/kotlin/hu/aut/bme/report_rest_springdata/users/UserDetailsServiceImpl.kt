@@ -6,17 +6,18 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserDetailsServiceImpl : UserDetailsService {
     @Autowired
     private lateinit var repository: UserRepository
 
+    @Transactional
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val user = repository.findById(username)
-        return if (!user.isPresent) throw UsernameNotFoundException("$username is an invalid username") else UserDetailsImpl(
-            user.get()
-        )
+        val user = repository.findByUsername(username)
+            ?.orElseThrow { UsernameNotFoundException("User Not Found with username: $username") }!!
+        return UserDetailsImpl.build(user)
     }
 }

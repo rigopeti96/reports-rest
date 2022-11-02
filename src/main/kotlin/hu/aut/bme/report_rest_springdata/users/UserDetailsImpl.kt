@@ -1,21 +1,28 @@
 package hu.aut.bme.report_rest_springdata.users
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.stream.Collectors
 
-class UserDetailsImpl(private val user: User): UserDetails {
+class UserDetailsImpl(
+    val id: String?,
+    private val username: String,
+    val email: String?,
+    @field:JsonIgnore private val password: String,
+    private val isEnabled: Boolean,
+    private val authorities: Collection<GrantedAuthority>
+): UserDetails {
     private val serialVersionUID = 1L
 
-    override fun getAuthorities(): Collection<GrantedAuthority>? {
-        return user.getRoles()!!.stream().map { role: String? -> SimpleGrantedAuthority(role) }
-            .collect(Collectors.toList())
+    override fun getAuthorities(): Collection<GrantedAuthority> {
+        return authorities
     }
 
-    override fun getPassword(): String = user.getPassword()
+    override fun getPassword(): String = password
 
-    override fun getUsername(): String = user.getName()
+    override fun getUsername(): String = username
 
     override fun isAccountNonExpired(): Boolean = true
 
@@ -23,5 +30,33 @@ class UserDetailsImpl(private val user: User): UserDetails {
 
     override fun isCredentialsNonExpired(): Boolean = true
 
-    override fun isEnabled(): Boolean = user.isEnabled()
+    override fun isEnabled(): Boolean = isEnabled
+
+
+    override fun equals(o: Any?): Boolean {
+        if (this === o) return true
+        if (o == null || javaClass != o.javaClass) return false
+        val user = o as UserDetailsImpl
+        return id == user.id
+    }
+
+    companion object {
+        private const val serialVersionUID = 1L
+        fun build(user: User): UserDetailsImpl {
+            val authorities = user.roles.stream()
+                .map { role: Role ->
+                    SimpleGrantedAuthority(
+                        role.name!!.name
+                    )
+                }.collect(Collectors.toList())
+            return UserDetailsImpl(
+                user.id,
+                user.username!!,
+                user.email,
+                user.password!!,
+                user.enabled,
+                authorities
+            )
+        }
+    }
 }
