@@ -29,7 +29,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
 
     @Throws(Exception::class)
     override fun run(vararg args: String) {
-        try {
+        /*try {
             val role = Role()
             role.name= ERole.ROLE_USER
             roleRepository.save(role)
@@ -38,7 +38,7 @@ class ReportRestSpringdataApplication: CommandLineRunner{
             roleRepository.save(role2)
         } catch (e: Exception) {
 
-        }
+        }*/
     }
 
     companion object {
@@ -48,10 +48,3 @@ class ReportRestSpringdataApplication: CommandLineRunner{
         }
     }
 }
-
-/**
- * Entry point
- */
-/*fun main(args: Array<String>) {
-    runApplication<ReportRestSpringdataApplication>(*args)
-}*/

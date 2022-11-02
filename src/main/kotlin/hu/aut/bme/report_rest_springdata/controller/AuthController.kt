@@ -101,8 +101,7 @@ class AuthController {
                     roles.add(adminRole)
                 }
                 else -> {
-                    val defaultRole = roleRepository.
-                    findByName(ERole.ROLE_USER)
+                    val defaultRole = roleRepository.findByName(ERole.ROLE_USER)
                         ?.orElseThrow(Supplier
                         { RuntimeException("Error: Role is not found.") })!!
                     roles.add(defaultRole)
@@ -112,7 +111,7 @@ class AuthController {
         user.roles = roles
         employeeRepository.save(user)
         return ResponseEntity.
-        ok(MessageResponse("Employee registered successfully!"))
+        ok(MessageResponse("User registered successfully!"))
     }
 
 }
