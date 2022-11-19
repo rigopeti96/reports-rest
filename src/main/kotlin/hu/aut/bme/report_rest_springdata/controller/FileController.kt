@@ -1,7 +1,7 @@
 package hu.aut.bme.report_rest_springdata.controller
 
 import hu.aut.bme.report_rest_springdata.repository.FileRepository
-import hu.aut.bme.report_rest_springdata.unzipper.Unzipper
+import hu.aut.bme.report_rest_springdata.gtfshandler.Unzipper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,7 +16,7 @@ import kotlin.io.path.Path
  * File uploader's endpoint class
  */
 @RestController
-@RequestMapping("/api/unzipper")
+@RequestMapping("/api/gtfshandler")
 class FileController {
     @Autowired
     private lateinit var fileRepository: FileRepository

@@ -1,4 +1,4 @@
-package hu.aut.bme.report_rest_springdata.unzipper
+package hu.aut.bme.report_rest_springdata.gtfshandler
 
 import java.io.*
 import java.nio.file.Path
@@ -9,6 +9,11 @@ import kotlin.io.path.exists
 
 
 object Unzipper {
+    const val trips = "trips"
+    const val routes = "routes"
+    const val pathways = "pathways"
+    const val stops = "stops"
+
     @Throws(IOException::class)
     fun unzip(zipFile: File, destDirectory: Path) {
         if (!destDirectory.exists()) destDirectory.createDirectories()
