@@ -1,6 +1,5 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.repository.FileRepository
 import hu.aut.bme.report_rest_springdata.gtfshandler.Unzipper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -18,8 +17,6 @@ import kotlin.io.path.Path
 @RestController
 @RequestMapping("/api/gtfshandler")
 class FileController {
-    @Autowired
-    private lateinit var fileRepository: FileRepository
 
     /**
      * Get the new BKK GTFS file and undzip it

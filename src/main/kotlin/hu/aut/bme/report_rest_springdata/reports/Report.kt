@@ -1,14 +1,15 @@
 package hu.aut.bme.report_rest_springdata.reports
 
+import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 import javax.persistence.*
 
 /**
  * Report representation class
  */
-@Entity
+@Document(collection = "reports")
 data class Report(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
+    @Id val id: String? = null,
     val reportType: String,
     val stationName: String,
     val transportType: String,

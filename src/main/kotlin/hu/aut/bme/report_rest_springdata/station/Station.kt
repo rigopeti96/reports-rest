@@ -1,13 +1,14 @@
 package hu.aut.bme.report_rest_springdata.station
 
+import org.springframework.data.mongodb.core.mapping.Document
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
-@Entity
+@Document(collection = "stations")
 data class Station(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
+    @Id val id: String? = null,
     val name: String,
     val latitude: Double,
     val longitude: Double,

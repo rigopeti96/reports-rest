@@ -19,9 +19,6 @@ class ReportController {
     @Autowired
     private lateinit var reportRepository: ReportRepository
 
-    @Autowired
-    private lateinit var jdbcTemplate: JdbcTemplate
-
     /**
      * Get reporter name
      * @param principal: user for search
@@ -53,9 +50,9 @@ class ReportController {
         val responseReports = ArrayList<Report>()
 
         for(i in 0 until reports.size){
-            val location = Location(reports[i].latitude, reports[i].longitude)
+            val location = Location(reports[i]!!.latitude, reports[i]!!.longitude)
             if(DistanceCalculator.calcDistance(location, reportRequest) <= reportRequest.distance){
-                responseReports.add(reports[i])
+                responseReports.add(reports[i]!!)
             }
         }
         return responseReports
@@ -74,6 +71,6 @@ class ReportController {
      * @param report: Report override from user's client
      * @return report saved
      */
-    @PutMapping
+    @PutMapping("/putReport")
     fun update(@RequestBody report: Report): Report = reportRepository.save(report)
 }

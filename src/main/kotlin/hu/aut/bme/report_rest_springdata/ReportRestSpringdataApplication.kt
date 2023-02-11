@@ -31,11 +31,8 @@ class ReportRestSpringdataApplication: CommandLineRunner{
     override fun run(vararg args: String) {
         /*try {
             val role = Role()
-            role.name= ERole.ROLE_USER
+            role.name= ERole.ROLE_WEBUSER
             roleRepository.save(role)
-            val role2 = Role()
-            role2.name=ERole.ROLE_ADMIN
-            roleRepository.save(role2)
         } catch (e: Exception) {
 
         }*/
