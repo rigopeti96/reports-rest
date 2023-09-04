@@ -47,6 +47,7 @@ class AuthController {
     @PostMapping("/signin")
     fun authenticateEmployee(@RequestBody loginRequest: @Valid LoginRequest?):
             ResponseEntity<*> {
+
         val authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken
                 (loginRequest!!.username, loginRequest.password)

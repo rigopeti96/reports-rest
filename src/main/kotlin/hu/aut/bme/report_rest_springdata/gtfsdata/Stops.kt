@@ -7,6 +7,8 @@ import javax.persistence.Id
 data class Stops(
     @Id val id: String,
     val stopName: String,
+    val stopType: String,
+    val stopColorType: String,
     val stopLat: Double,
     val stopLon: Double
 )
