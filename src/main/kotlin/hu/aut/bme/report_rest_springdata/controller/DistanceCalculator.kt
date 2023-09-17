@@ -1,6 +1,6 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.request.LocationRequest
+import hu.aut.bme.report_rest_springdata.request.StationRequest
 import hu.aut.bme.report_rest_springdata.station.Location
 import kotlin.math.acos
 import kotlin.math.cos
@@ -28,7 +28,7 @@ object DistanceCalculator {
      * @param stationRequest: request from user contains the actual location (lat2, lon2)
      * @return distance of the two coords
      */
-    fun calcDistance(location: Location, stationRequest: LocationRequest): Double{
+    fun calcDistance(location: Location, stationRequest: StationRequest): Double{
         val theta: Double = location.longitude - stationRequest.longitude
         var dist =
             sin(deg2rad(location.latitude)) * sin(deg2rad(stationRequest.latitude)) + cos(location.latitude) * cos(deg2rad(stationRequest.latitude)) * cos(

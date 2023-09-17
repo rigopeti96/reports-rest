@@ -1,10 +1,9 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.jwt.AuthEntryPointJwt
 import hu.aut.bme.report_rest_springdata.station.Station
 import hu.aut.bme.report_rest_springdata.repository.StopstationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
-import hu.aut.bme.report_rest_springdata.request.LocationRequest
+import hu.aut.bme.report_rest_springdata.request.StationRequest
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,7 +30,7 @@ class StationController {
      * @return list of station which distance's is lower than the radius
      */
     @GetMapping("/getStations")
-    fun getStations(stationRequest: LocationRequest): ArrayList<Station>{
+    fun getStations(stationRequest: StationRequest): ArrayList<Station>{
         logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
         val locations = stopStationRepository.findAll()
         val responseStations = ArrayList<Station>()
