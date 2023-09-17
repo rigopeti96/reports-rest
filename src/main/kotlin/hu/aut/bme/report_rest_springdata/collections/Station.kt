@@ -1,11 +1,12 @@
 package hu.aut.bme.report_rest_springdata.collections
 
 import org.springframework.data.mongodb.core.mapping.Document
+import java.util.*
 import javax.persistence.Id
 
 @Document(collection = "stations")
 data class Station(
-    @Id val id: String? = null,
+    @Id val id: UUID? = null,
     val name: String,
     val latitude: Double,
     val longitude: Double,
