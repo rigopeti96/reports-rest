@@ -12,7 +12,8 @@ data class Station(
     val name: String,
     val latitude: Double,
     val longitude: Double,
-    val stopType: String
+    val stopType: String,
+    val stopColorType: String
 ){
     override fun hashCode(): Int {
         val prime = 31
