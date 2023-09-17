@@ -1,17 +1,14 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.repository.RoleRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import hu.aut.bme.report_rest_springdata.jwt.JwtUtils
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import hu.aut.bme.report_rest_springdata.jwt.JwtUtils.Companion.logger
 import javax.validation.Valid
+import org.slf4j.LoggerFactory
 import hu.aut.bme.report_rest_springdata.request.LoginRequest
 import hu.aut.bme.report_rest_springdata.request.SignupRequest
 import org.springframework.http.ResponseEntity
@@ -22,6 +19,9 @@ import java.util.stream.Collectors
 import hu.aut.bme.report_rest_springdata.response.JwtResponse
 import hu.aut.bme.report_rest_springdata.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.users.*
+import org.apache.commons.logging.Log
+import org.springframework.web.bind.annotation.*
+import java.io.Console
 import java.util.function.Consumer
 import java.util.function.Supplier
 
@@ -44,9 +44,17 @@ class AuthController {
     @Autowired
     private lateinit var jwtUtils: JwtUtils
 
+    @GetMapping("/hello")
+    fun hello(): String{
+        println("Hello called")
+        return "hello"
+    }
+
     @PostMapping("/signin")
     fun authenticateEmployee(@RequestBody loginRequest: @Valid LoginRequest?):
             ResponseEntity<*> {
+
+        println("login request data ${loginRequest!!.username}, ${loginRequest.password}")
 
         val authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken
@@ -58,20 +66,28 @@ class AuthController {
         val roles = userDetails.authorities.stream().
         map { item: GrantedAuthority -> item.authority }
             .collect(Collectors.toList())
+        val jwtResponse = JwtResponse(
+            jwt,
+            userDetails.id!!,
+            userDetails.username,
+            userDetails.email!!,
+            userDetails.isEnabled,
+            roles
+        )
+
+        println("JWT Response data: ${jwtResponse.accessToken}, ${jwtResponse.email}")
+
         return ResponseEntity.ok(
-            JwtResponse(
-                jwt, userDetails.id!!,
-                userDetails.username,
-                userDetails.email!!,
-                userDetails.isEnabled,
-                roles
-            )
+            jwtResponse
         )
     }
 
     @PostMapping("/signup")
     fun registerUser(@RequestBody signUpRequest:
                      @Valid SignupRequest?): ResponseEntity<*> {
+
+        println("signup request content: ${signUpRequest!!.email}, ${signUpRequest.username}, ${signUpRequest.name}")
+
         if (employeeRepository.existsByUsername(signUpRequest!!.username)!!) {
             return ResponseEntity.badRequest().
             body(MessageResponse("Error: Employeename is already taken!"))

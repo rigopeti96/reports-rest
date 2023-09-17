@@ -51,6 +51,6 @@ class JwtUtils {
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(JwtUtils::class.java)
+        val logger = LoggerFactory.getLogger(JwtUtils::class.java)
     }
 }
