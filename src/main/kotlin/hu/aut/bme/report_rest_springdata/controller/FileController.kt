@@ -26,7 +26,7 @@ class FileController {
     @PostMapping("/uploadArchive")
     fun uploadArchive(uploadedZip: File): ResponseEntity<String>{
         return try {
-            Unzipper.unzip(uploadedZip, Path("src/main/resources/unzipStage"))
+            Unzipper.unzip("src/main/resources/zipContainer")
             ResponseEntity("Upload was successful", HttpStatus.OK)
         } catch (e: IOException){
             ResponseEntity(
