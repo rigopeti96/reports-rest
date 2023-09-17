@@ -1,27 +1,25 @@
 package hu.aut.bme.report_rest_springdata.controller
 
+import hu.aut.bme.report_rest_springdata.collections.Role
+import hu.aut.bme.report_rest_springdata.collections.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.repository.RoleRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import hu.aut.bme.report_rest_springdata.jwt.JwtUtils
-import hu.aut.bme.report_rest_springdata.jwt.JwtUtils.Companion.logger
 import javax.validation.Valid
-import org.slf4j.LoggerFactory
-import hu.aut.bme.report_rest_springdata.request.LoginRequest
-import hu.aut.bme.report_rest_springdata.request.SignupRequest
+import hu.aut.bme.report_rest_springdata.data.request.LoginRequest
+import hu.aut.bme.report_rest_springdata.data.request.SignupRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.GrantedAuthority
 import java.util.stream.Collectors
-import hu.aut.bme.report_rest_springdata.response.JwtResponse
-import hu.aut.bme.report_rest_springdata.response.MessageResponse
+import hu.aut.bme.report_rest_springdata.data.request.response.JwtResponse
+import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.users.*
-import org.apache.commons.logging.Log
 import org.springframework.web.bind.annotation.*
-import java.io.Console
 import java.util.function.Consumer
 import java.util.function.Supplier
 

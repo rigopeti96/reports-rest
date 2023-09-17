@@ -1,11 +1,10 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.reports.Report
+import hu.aut.bme.report_rest_springdata.collections.Report
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
-import hu.aut.bme.report_rest_springdata.request.LocationRequest
+import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
@@ -45,7 +44,7 @@ class ReportController {
      * @return list of reports
      */
     @GetMapping("/getAllReportsByDistance")
-    fun getAllReportsByDistance(principal: Principal?, reportRequest: LocationRequest): List<Report?>{
+    fun getAllReportsByDistance(principal: Principal?, reportRequest: StationRequest): List<Report?>{
         val reports = reportRepository.findAll()
         val responseReports = ArrayList<Report>()
 

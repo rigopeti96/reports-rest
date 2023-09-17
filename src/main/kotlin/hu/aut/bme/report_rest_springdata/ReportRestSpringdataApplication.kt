@@ -2,15 +2,11 @@ package hu.aut.bme.report_rest_springdata
 
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.repository.RoleRepository
-import hu.aut.bme.report_rest_springdata.users.User
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
-import hu.aut.bme.report_rest_springdata.users.ERole
-import hu.aut.bme.report_rest_springdata.users.Role
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootApplication
