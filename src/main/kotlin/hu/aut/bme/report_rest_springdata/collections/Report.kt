@@ -1,4 +1,4 @@
-package hu.aut.bme.report_rest_springdata.reports
+package hu.aut.bme.report_rest_springdata.collections
 
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime

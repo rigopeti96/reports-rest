@@ -1,7 +1,5 @@
-package hu.aut.bme.report_rest_springdata.users
+package hu.aut.bme.report_rest_springdata.collections
 
-import net.bytebuddy.implementation.bind.MethodDelegationBinder
-import javax.persistence.*
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document

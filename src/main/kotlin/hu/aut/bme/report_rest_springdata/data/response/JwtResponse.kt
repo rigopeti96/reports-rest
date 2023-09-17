@@ -1,4 +1,4 @@
-package hu.aut.bme.report_rest_springdata.response
+package hu.aut.bme.report_rest_springdata.data.request.response
 
 class JwtResponse(
     var accessToken: String,

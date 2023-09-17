@@ -1,4 +1,4 @@
-package hu.aut.bme.report_rest_springdata.request
+package hu.aut.bme.report_rest_springdata.data.request
 
 data class StationRequest (
     val latitude: Double,

@@ -1,6 +1,6 @@
 package hu.aut.bme.report_rest_springdata.repository
 
-import hu.aut.bme.report_rest_springdata.users.User
+import hu.aut.bme.report_rest_springdata.collections.User
 import org.springframework.stereotype.Repository
 import org.springframework.data.mongodb.repository.MongoRepository
 import java.util.*

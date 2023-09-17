@@ -1,6 +1,6 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.request.StationRequest
+import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.station.Location
 import kotlin.math.acos
 import kotlin.math.cos

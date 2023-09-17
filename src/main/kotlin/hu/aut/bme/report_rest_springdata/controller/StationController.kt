@@ -1,9 +1,9 @@
 package hu.aut.bme.report_rest_springdata.controller
 
-import hu.aut.bme.report_rest_springdata.station.Station
+import hu.aut.bme.report_rest_springdata.collections.Station
 import hu.aut.bme.report_rest_springdata.repository.StopstationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
-import hu.aut.bme.report_rest_springdata.request.StationRequest
+import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
