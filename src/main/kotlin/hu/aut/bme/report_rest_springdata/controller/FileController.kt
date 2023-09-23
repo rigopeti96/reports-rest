@@ -39,9 +39,11 @@ class FileController {
         }
 
         return try {
-            Unzipper.unzip("src/main/resources/zipContainer/${uploadedZip.name}")
+            Unzipper.unzip("src/main/resources/zipContainer/")
             ResponseEntity("Upload was successful", HttpStatus.OK)
         } catch (e: IOException){
+            println(e.message)
+            e.printStackTrace()
             ResponseEntity(
                 "Upload was not successful due IOException",
                 HttpStatus.INTERNAL_SERVER_ERROR
@@ -56,7 +58,7 @@ class FileController {
     fun insertZipIntoTargetFolder(uploadedZip: MultipartFile){
         try {
             val encoded = uploadedZip.bytes
-            File("src/main/resources/zipContainer/actualGtfsData.zip").writeBytes(encoded)
+            File("src/main/resources/zipContainer/${uploadedZip.name}.zip").writeBytes(encoded)
         } catch (e: Exception){
             throw InsertZipIntoDestinationFolderException("Insert Zip into destination folder was unsuccessful!", e)
         }
