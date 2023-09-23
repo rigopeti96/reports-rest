@@ -1,5 +1,6 @@
 package hu.aut.bme.report_rest_springdata.collections
 
+import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 import java.util.*
@@ -10,7 +11,7 @@ import javax.persistence.*
  */
 @Document(collection = "reports")
 data class Report(
-    @Id val id: UUID? = null,
+    @Id var id: UUID? = null,
     val reportType: String,
     val stationName: String,
     val transportType: String,
