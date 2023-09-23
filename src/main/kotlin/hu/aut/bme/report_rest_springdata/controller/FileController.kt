@@ -1,15 +1,17 @@
 package hu.aut.bme.report_rest_springdata.controller
 
+import hu.aut.bme.report_rest_springdata.exception.InsertZipIntoDestinationFolderException
 import hu.aut.bme.report_rest_springdata.gtfshandler.Unzipper
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.io.IOException
-import kotlin.io.path.Path
+import java.lang.Exception
 
 /**
  * File uploader's endpoint class
@@ -24,16 +26,39 @@ class FileController {
      * @return HTTPStatus.OK if upload was successful
      */
     @PostMapping("/uploadArchive")
-    fun uploadArchive(uploadedZip: File): ResponseEntity<String>{
+    fun uploadArchive(
+        @RequestParam uploadedZip: MultipartFile
+    ): ResponseEntity<String>{
+        try {
+            insertZipIntoTargetFolder(uploadedZip)
+        } catch (e: InsertZipIntoDestinationFolderException){
+            println(e.stackTrace)
+            return ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+
         return try {
-            Unzipper.unzip("src/main/resources/zipContainer")
+            Unzipper.unzip("actualGtfsData.zip")
             ResponseEntity("Upload was successful", HttpStatus.OK)
         } catch (e: IOException){
+            println(e.message)
+            e.printStackTrace()
             ResponseEntity(
                 "Upload was not successful due IOException",
                 HttpStatus.INTERNAL_SERVER_ERROR
             )
         }
+    }
 
+    /**
+     * Try to insert zip file into the destination folder
+     * @throws InsertZipIntoDestinationFolderException if the insert was not successful, throws this custom exception
+     */
+    fun insertZipIntoTargetFolder(uploadedZip: MultipartFile){
+        try {
+            val encoded = uploadedZip.bytes
+            File("src/main/resources/zipContainer/actualGtfsData.zip").writeBytes(encoded)
+        } catch (e: Exception){
+            throw InsertZipIntoDestinationFolderException("Insert Zip into destination folder was unsuccessful!", e)
+        }
     }
 }

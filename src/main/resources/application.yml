@@ -4,6 +4,17 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+      spring:
+        servlet:
+          multipart:
+            enabled: true
+            max-file-size: 100MB
+            max-request-size: 100MB
+        http:
+          multipart:
+            enabled: true
+            max-file-size: 100MB
+            max-request-size: 100MB
     hibernate:
       ddl-auto: update
   data:
