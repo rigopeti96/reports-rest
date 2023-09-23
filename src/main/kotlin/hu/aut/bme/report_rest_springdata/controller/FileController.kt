@@ -6,9 +6,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import kotlin.io.path.Path
 
 /**
@@ -24,8 +27,11 @@ class FileController {
      * @return HTTPStatus.OK if upload was successful
      */
     @PostMapping("/uploadArchive")
-    fun uploadArchive(uploadedZip: File): ResponseEntity<String>{
+    fun uploadArchive(
+        @RequestParam uploadedZip: MultipartFile
+    ): ResponseEntity<String>{
         return try {
+            insertZipIntoTargetFolder(uploadedZip)
             Unzipper.unzip("src/main/resources/zipContainer")
             ResponseEntity("Upload was successful", HttpStatus.OK)
         } catch (e: IOException){
@@ -34,6 +40,15 @@ class FileController {
                 HttpStatus.INTERNAL_SERVER_ERROR
             )
         }
+    }
 
+    @Throws(IOException::class)
+    fun insertZipIntoTargetFolder(uploadedZip: MultipartFile){
+        try {
+            val encoded = uploadedZip.bytes
+            File("src/main/resources/zipContainer/actualGtfsData.zip").writeBytes(encoded)
+        } catch (e: Exception){
+            throw IOException()
+        }
     }
 }
