@@ -6,10 +6,11 @@ import hu.aut.bme.report_rest_springdata.collections.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.util.*
 import java.util.stream.Collectors
 
 class UserDetailsImpl(
-    val id: String?,
+    val id: UUID?,
     private val username: String,
     val email: String?,
     @field:JsonIgnore private val password: String,
