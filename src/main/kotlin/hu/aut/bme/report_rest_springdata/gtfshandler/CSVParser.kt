@@ -19,6 +19,9 @@ object CSVParser {
             val csvReader = CSVReader(reader)
             var line: Array<String>
             while ((csvReader.readNext().also { line = it }) != null) {
+                when(filePath!!.fileName.toString()){
+
+                }
                 list.add(line)
             }
         } catch (e: Exception){
