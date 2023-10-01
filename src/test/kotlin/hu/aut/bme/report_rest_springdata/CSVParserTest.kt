@@ -9,11 +9,9 @@ class CSVParserTest {
 
     @Test
     fun readCSV(){
-        val read = CSVParser.readLineByLineExample("agency.txt")
+        val read = CSVParser.readLineByLineExample("stops.txt")
         for (i in read.indices){
-            for (j in read[i].indices){
-                println(read[i][j])
-            }
+            println(read[i])
         }
     }
 }

@@ -1,7 +1,7 @@
 package hu.aut.bme.report_rest_springdata.controller
 
 import hu.aut.bme.report_rest_springdata.collections.Station
-import hu.aut.bme.report_rest_springdata.repository.StopstationRepository
+import hu.aut.bme.report_rest_springdata.repository.StationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.station.Location
@@ -22,7 +22,7 @@ class StationController {
     private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var stopStationRepository: StopstationRepository
+    private lateinit var stopStationRepository: StationRepository
 
     /**
      * Send the stations' data which are closer than stationRequest.distance attribute
