@@ -1,0 +1,8 @@
+{
+  "properties": [
+  {
+      "name": "my.gtfs.stops",
+      "type": "java.lang.String",
+      "description": "Filename of stops csv."
+    }
+  ] }

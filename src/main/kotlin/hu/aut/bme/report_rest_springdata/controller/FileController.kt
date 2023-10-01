@@ -1,7 +1,12 @@
 package hu.aut.bme.report_rest_springdata.controller
 
+import hu.aut.bme.report_rest_springdata.collections.Stops
 import hu.aut.bme.report_rest_springdata.exception.InsertZipIntoDestinationFolderException
+import hu.aut.bme.report_rest_springdata.gtfshandler.CSVParser
 import hu.aut.bme.report_rest_springdata.gtfshandler.Unzipper
+import hu.aut.bme.report_rest_springdata.repository.StopRepository
+import hu.aut.bme.report_rest_springdata.repository.UserRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,7 +24,8 @@ import java.lang.Exception
 @RestController
 @RequestMapping("/api/gtfshandler")
 class FileController {
-
+    @Autowired
+    private lateinit var stopRepository: StopRepository
     /**
      * Get the new BKK GTFS file and undzip it
      * @param uploadedZip: the new ZIP archive uploaded in webapp
@@ -38,6 +44,8 @@ class FileController {
 
         return try {
             Unzipper.unzip("actualGtfsData.zip")
+            val stops: MutableList<Stops> = CSVParser.readLineByLineExample("stops.txt")
+            saveStops(stops)
             ResponseEntity("Upload was successful", HttpStatus.OK)
         } catch (e: IOException){
             println(e.message)
@@ -47,6 +55,17 @@ class FileController {
                 HttpStatus.INTERNAL_SERVER_ERROR
             )
         }
+    }
+
+    private fun saveStops(stops: MutableList<Stops>) {
+        try {
+            for(i in 0 until stops.size){
+                stopRepository.save(stops[i])
+            }
+        } catch (e: Exception){
+            println(e)
+        }
+
     }
 
     /**
