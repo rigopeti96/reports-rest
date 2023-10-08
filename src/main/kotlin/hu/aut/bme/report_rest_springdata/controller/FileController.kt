@@ -9,6 +9,7 @@ import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -32,6 +33,7 @@ class FileController {
      * @return HTTPStatus.OK if upload was successful
      */
     @PostMapping("/uploadArchive")
+    @PreAuthorize("hasRole('WEBUSER')")
     fun uploadArchive(
         @RequestParam uploadedZip: MultipartFile
     ): ResponseEntity<String>{

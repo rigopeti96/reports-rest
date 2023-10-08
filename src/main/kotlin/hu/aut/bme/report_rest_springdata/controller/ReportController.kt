@@ -7,6 +7,7 @@ import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 import java.util.*
@@ -38,6 +39,7 @@ class ReportController {
      * @return list of reports
      */
     @GetMapping("/getAllReports")
+    @PreAuthorize("hasRole('USER')")
     fun getAllReports(principal: Principal?): List<Report?>{
         return reportRepository.findAll()
     }
@@ -47,6 +49,7 @@ class ReportController {
      * @return list of reports
      */
     @GetMapping("/getAllReportsByDistance")
+    @PreAuthorize("hasRole('USER')")
     fun getAllReportsByDistance(reportRequest: StationRequest): List<Report?>{
         val reports = reportRepository.findAll()
         val responseReports = ArrayList<Report>()
@@ -68,6 +71,7 @@ class ReportController {
      * @return report saved
      */
     @PostMapping("/postReport")
+    @PreAuthorize("hasRole('USER')")
     fun create(@RequestBody report: Report): Report {
         report.id = UUID.randomUUID()
         reportRepository.save(report)
@@ -80,6 +84,7 @@ class ReportController {
      * @return report saved
      */
     @PutMapping("/putReport")
+    @PreAuthorize("hasRole('USER')")
     fun update(@RequestBody report: Report): ResponseEntity<*> {
         if(reportRepository.findById(report.id!!) == null){
             return ResponseEntity.badRequest().body((MessageResponse("Error: Report with given data is not found!")))

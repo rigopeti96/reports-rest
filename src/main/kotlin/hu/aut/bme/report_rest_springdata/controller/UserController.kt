@@ -25,7 +25,7 @@ class UserController {
     private lateinit var passwordEncoder: PasswordEncoder
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') ")
+    @PreAuthorize("hasRole('USER')")
     fun userAccess(): MessageResponse {
         return MessageResponse("User zone")
     }
