@@ -45,6 +45,15 @@ class StationController {
         return responseStations
     }
 
+    /**
+     * Send all of the stations'
+     * @return list of all stations
+     */
+    @GetMapping("/getAllStations")
+    fun getAllStations(): MutableList<Station?> {
+        return stopStationRepository.findAll()
+    }
+
     companion object {
         private val logger = LoggerFactory.getLogger(StationController::class.java)
     }

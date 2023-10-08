@@ -1,8 +1,11 @@
 package hu.aut.bme.report_rest_springdata
 
+import hu.aut.bme.report_rest_springdata.collections.Role
+import hu.aut.bme.report_rest_springdata.collections.User
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.repository.RoleRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
+import hu.aut.bme.report_rest_springdata.users.ERole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
@@ -25,13 +28,6 @@ class ReportRestSpringdataApplication: CommandLineRunner{
 
     @Throws(Exception::class)
     override fun run(vararg args: String) {
-        /*try {
-            val role = Role()
-            role.name= ERole.ROLE_WEBUSER
-            roleRepository.save(role)
-        } catch (e: Exception) {
-
-        }*/
     }
 
     companion object {

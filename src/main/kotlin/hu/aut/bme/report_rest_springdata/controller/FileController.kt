@@ -35,6 +35,7 @@ class FileController {
     fun uploadArchive(
         @RequestParam uploadedZip: MultipartFile
     ): ResponseEntity<String>{
+        println("zip upload called")
         try {
             insertZipIntoTargetFolder(uploadedZip)
         } catch (e: InsertZipIntoDestinationFolderException){

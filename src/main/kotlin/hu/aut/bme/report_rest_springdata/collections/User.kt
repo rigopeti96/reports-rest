@@ -32,5 +32,4 @@ class User{
         this.password = password
         this.enabled = enabled
     }
-
 }

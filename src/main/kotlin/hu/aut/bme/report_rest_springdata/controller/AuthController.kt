@@ -84,8 +84,6 @@ class AuthController {
     fun registerUser(@RequestBody signUpRequest:
                      @Valid SignupRequest?): ResponseEntity<*> {
 
-        println("signup request content: ${signUpRequest!!.email}, ${signUpRequest.username}, ${signUpRequest.name}")
-
         if (employeeRepository.existsByUsername(signUpRequest!!.username)!!) {
             return ResponseEntity.badRequest().
             body(MessageResponse("Error: Employeename is already taken!"))
