@@ -6,9 +6,9 @@ import javax.persistence.Id
 @Document(collection = "stops")
 data class Stops(
     @Id val stop_id: String,
-    val stop_name: String,
-    val stop_lat: Double,
-    val stop_lon: Double
+    var stop_name: String,
+    var stop_lat: Double,
+    var stop_lon: Double
 ){
     override fun hashCode(): Int {
         val prime = 31

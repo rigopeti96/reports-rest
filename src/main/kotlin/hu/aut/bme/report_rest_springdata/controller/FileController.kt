@@ -47,6 +47,7 @@ class FileController {
 
         return try {
             Unzipper.unzip("actualGtfsData.zip")
+            stopRepository.deleteAll()
             val stops: MutableList<Stops> = CSVParser.readLineByLineExample("stops.txt")
             saveStops(stops)
             ResponseEntity("Upload was successful", HttpStatus.OK)

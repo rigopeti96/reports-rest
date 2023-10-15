@@ -4,6 +4,7 @@ import hu.aut.bme.report_rest_springdata.collections.Report
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
+import hu.aut.bme.report_rest_springdata.jwt.JwtUtils.Companion.logger
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -35,12 +36,11 @@ class ReportController {
 
     /**
      * Get all reports from database
-     * @param principal: reporter user data
      * @return list of reports
      */
     @GetMapping("/getAllReports")
     @PreAuthorize("hasRole('USER')")
-    fun getAllReports(principal: Principal?): List<Report?>{
+    fun getAllReports(): List<Report?>{
         return reportRepository.findAll()
     }
 

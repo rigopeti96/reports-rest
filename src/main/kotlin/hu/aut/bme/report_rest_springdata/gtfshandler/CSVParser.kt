@@ -3,6 +3,7 @@ package hu.aut.bme.report_rest_springdata.gtfshandler
 import com.opencsv.CSVReader
 import hu.aut.bme.report_rest_springdata.collections.Stops
 import hu.aut.bme.report_rest_springdata.repository.StopRepository
+import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import java.io.IOException
 import java.nio.file.Files
@@ -14,10 +15,12 @@ import kotlin.io.path.exists
 
 
 object CSVParser {
+    private var requestedStopList = mutableListOf<Stops?>()
 
     @Throws(Exception::class)
     fun readLineByLine(filePath: Path?): MutableList<Stops> {
         val stopList: MutableList<Stops> = ArrayList()
+
         var firstRow = true
         try {
             val reader = Files.newBufferedReader(filePath)
@@ -26,7 +29,8 @@ object CSVParser {
             while ((csvReader.readNext().also { line = it }) != null) {
                 if(!firstRow){
                     if(filePath!!.fileName.toString() == "stops.txt"){
-                        stopList.add(createStopValue(line))
+                        val actStops = createStopValue(line)
+                        stopList.add(actStops)
                     }
                 } else{
                     firstRow = false
@@ -38,6 +42,14 @@ object CSVParser {
         println("readLineByLine stopList size: ${stopList.size}")
 
         return stopList
+    }
+
+    private fun updateStationItem(fromDb: Stops, update: Stops): Stops{
+        fromDb.stop_lat = update.stop_lat
+        fromDb.stop_lon = update.stop_lon
+        fromDb.stop_name = update.stop_name
+
+        return fromDb
     }
 
     private fun createStopValue(line: Array<String>): Stops {
@@ -61,6 +73,7 @@ object CSVParser {
         if(!path.exists()){
             throw IOException("$fileZip does not exists")
         }
+
         return readLineByLine(path)
     }
 }
