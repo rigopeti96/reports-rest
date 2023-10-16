@@ -59,6 +59,7 @@ object CSVParser {
         val lon = line[3].toDouble()
 
         return Stops(
+            null,
             id,
             name,
             lat,

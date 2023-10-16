@@ -1,11 +1,13 @@
 package hu.aut.bme.report_rest_springdata.collections
 
+import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Document
 import javax.persistence.Id
 
 @Document(collection = "stops")
 data class Stops(
-    @Id val stop_id: String,
+    @Id val id: ObjectId?,
+    val stop_id: String,
     var stop_name: String,
     var stop_lat: Double,
     var stop_lon: Double
@@ -22,7 +24,7 @@ data class Stops(
         if (obj == null) return false
         if (javaClass != obj.javaClass) return false
         val (id1) = obj as Stops
-        if (stop_id != id1) return false
+        if (id != id1) return false
         return true
     }
 }

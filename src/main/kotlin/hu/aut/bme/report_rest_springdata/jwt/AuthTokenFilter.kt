@@ -30,6 +30,7 @@ class AuthTokenFilter : OncePerRequestFilter() {
     ) {
         try {
             val jwt = parseJwt(request)
+            logger.debug("jwt value in AuthTokenFilter: $jwt")
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 val username = jwtUtils.getUserNameFromJwtToken(jwt)
                 val userDetails = userDetailsService.loadUserByUsername(username)

@@ -1,13 +1,17 @@
 package hu.aut.bme.report_rest_springdata.controller
 
 import hu.aut.bme.report_rest_springdata.collections.Station
+import hu.aut.bme.report_rest_springdata.collections.Stops
 import hu.aut.bme.report_rest_springdata.repository.StationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
+import hu.aut.bme.report_rest_springdata.repository.StopRepository
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -22,14 +26,14 @@ class StationController {
     private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var stopStationRepository: StationRepository
+    private lateinit var stopStationRepository: StopRepository
 
     /**
      * Send the stations' data which are closer than stationRequest.distance attribute
      * @param stationRequest: Request from user contains position data and distance
      * @return list of station which distance's is lower than the radius
      */
-    @GetMapping("/getStations")
+    /*@GetMapping("/getStations")
     fun getStations(stationRequest: StationRequest): ArrayList<Station>{
         logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
         val locations = stopStationRepository.findAll()
@@ -43,14 +47,16 @@ class StationController {
         }
 
         return responseStations
-    }
+    }*/
 
     /**
      * Send all of the stations'
      * @return list of all stations
      */
     @GetMapping("/getAllStations")
-    fun getAllStations(): MutableList<Station?> {
+    @PreAuthorize("hasRole('USER')")
+    fun getAllStations(@RequestHeader(name="Authorization") token: String): MutableList<Stops?> {
+        logger.info("Jwt token in getAllStations: $token")
         return stopStationRepository.findAll()
     }
 
