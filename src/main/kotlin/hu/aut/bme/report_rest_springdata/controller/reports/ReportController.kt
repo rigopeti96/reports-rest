@@ -1,10 +1,10 @@
-package hu.aut.bme.report_rest_springdata.controller
+package hu.aut.bme.report_rest_springdata.controller.reports
 
 import hu.aut.bme.report_rest_springdata.collections.Report
+import hu.aut.bme.report_rest_springdata.controller.DistanceCalculator
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
-import hu.aut.bme.report_rest_springdata.jwt.JwtUtils.Companion.logger
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -20,7 +20,6 @@ import kotlin.collections.ArrayList
 @RestController
 @RequestMapping("/api/reports")
 class ReportController {
-
     @Autowired
     private lateinit var reportRepository: ReportRepository
 
@@ -32,37 +31,6 @@ class ReportController {
     @GetMapping("/reporterName")
     fun reporterName(principal: Principal?): String {
         return "Reporter: " + principal?.name
-    }
-
-    /**
-     * Get all reports from database
-     * @return list of reports
-     */
-    @GetMapping("/getAllReports")
-    @PreAuthorize("hasRole('USER')")
-    fun getAllReports(): List<Report?>{
-        return reportRepository.findAll()
-    }
-
-    /**
-     * Get all reports from database
-     * @return list of reports
-     */
-    @GetMapping("/getAllReportsByDistance")
-    @PreAuthorize("hasRole('USER')")
-    fun getAllReportsByDistance(reportRequest: StationRequest): List<Report?>{
-        val reports = reportRepository.findAll()
-        val responseReports = ArrayList<Report>()
-        println("Reports size: ${reports.size}")
-
-        for(i in 0 until reports.size){
-            val location = Location(reports[i]!!.latitude, reports[i]!!.longitude)
-            println("Distance between :${DistanceCalculator.calcDistance(location, reportRequest)}")
-            if(DistanceCalculator.calcDistance(location, reportRequest) <= reportRequest.distance){
-                responseReports.add(reports[i]!!)
-            }
-        }
-        return responseReports
     }
 
     /**
