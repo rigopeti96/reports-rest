@@ -25,7 +25,6 @@ class ReportPublicController {
      */
     @GetMapping("/getAllReports")
     fun getAllReports(): List<Report?>{
-        logger.info("Get all reports called")
         return reportRepository.findAll()
     }
 
@@ -37,7 +36,6 @@ class ReportPublicController {
     fun getAllReportsByDistance(reportRequest: StationRequest): List<Report?>{
         val reports = reportRepository.findAll()
         val responseReports = ArrayList<Report>()
-        println("Reports size: ${reports.size}")
 
         for(i in 0 until reports.size){
             val location = Location(reports[i]!!.latitude, reports[i]!!.longitude)
