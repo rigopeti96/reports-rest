@@ -64,9 +64,7 @@ class ReportController {
         }
 
         val reportFound = reportRepository.findById(report.id)
-        //reportFound!!.reportDateUntil = LocalDateTime.parse(report.reportDateUntil, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         reportFound!!.reportDateUntil = LocalDateTime.parse(report.reportDateUntil)
-        //reportRepository.delete(reportRepository.findById(report.id!!)!!)
         reportRepository.save(reportFound)
 
         return ResponseEntity.ok().body((reportRepository.findById(report.id)))
