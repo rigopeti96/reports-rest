@@ -1,7 +1,6 @@
 package hu.aut.bme.report_rest_springdata.controller.reports
 
 import hu.aut.bme.report_rest_springdata.collections.Report
-import hu.aut.bme.report_rest_springdata.controller.DistanceCalculator
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.jwt.AuthEntryPointJwt
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
@@ -39,10 +38,10 @@ class ReportPublicController {
 
         for(i in 0 until reports.size){
             val location = Location(reports[i]!!.latitude, reports[i]!!.longitude)
-            println("Distance between :${DistanceCalculator.calcDistance(location, reportRequest)}")
+            /*println("Distance between :${DistanceCalculator.calcDistance(location, reportRequest)}")
             if(DistanceCalculator.calcDistance(location, reportRequest) <= reportRequest.distance){
                 responseReports.add(reports[i]!!)
-            }
+            }*/
         }
         return responseReports
     }

@@ -1,7 +1,6 @@
 package hu.aut.bme.report_rest_springdata.controller.reports
 
 import hu.aut.bme.report_rest_springdata.collections.Report
-import hu.aut.bme.report_rest_springdata.controller.DistanceCalculator
 import hu.aut.bme.report_rest_springdata.data.request.ReportUpdateRequest
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest

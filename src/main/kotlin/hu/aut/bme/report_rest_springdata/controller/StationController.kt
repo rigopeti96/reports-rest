@@ -5,15 +5,17 @@ import hu.aut.bme.report_rest_springdata.collections.Stops
 import hu.aut.bme.report_rest_springdata.repository.StationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
+import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.repository.StopRepository
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import kotlin.math.acos
+import kotlin.math.cos
+import kotlin.math.sin
 
 
 /**
@@ -55,9 +57,36 @@ class StationController {
      */
     @GetMapping("/getAllStations")
     @PreAuthorize("hasRole('USER')")
-    fun getAllStations(@RequestHeader(name="Authorization") token: String): MutableList<Stops?> {
-        logger.info("Jwt token in getAllStations: $token")
+    fun getAllStations(): MutableList<Stops?> {
         return stopStationRepository.findAll()
+    }
+
+    /**
+     * @param
+     * @return
+     */
+    @GetMapping("/getStationsByDistance")
+    @PreAuthorize("hasRole('USER')")
+    fun getStationsByDistance(@RequestBody stationRequest: StationRequest): ResponseEntity<*> {
+        logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
+        val userLocation = Location(stationRequest.latitude, stationRequest.longitude)
+        val stopList = stopStationRepository.findAll()
+        logger.info("Stop list size: ${stopList.size}")
+        var foundCounter = 0
+        if(stopList.size > 0){
+            for(i in 0 until stopList.size){
+                val calcDist = DistanceCalculator.calculateDistance(userLocation, Location(stopList[i]!!.stop_lat, stopList[i]!!.stop_lon))
+                if(calcDist < stationRequest.distance){
+                    foundCounter++
+                    logger.info("Station found! Station name: ${stopList[i]!!.stop_name}, distance: $calcDist")
+                }
+            }
+        }
+
+        logger.info("Found counter value: $foundCounter")
+
+        return ResponseEntity.badRequest().body(MessageResponse("Request done, see logs!"))
+
     }
 
     companion object {
