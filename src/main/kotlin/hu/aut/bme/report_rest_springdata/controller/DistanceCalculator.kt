@@ -8,9 +8,9 @@ import kotlin.math.sin
 object DistanceCalculator {
     /**
      * Calculate distance between two locations in km
-     * @param
-     * @param
-     * @return
+     * @param userPoint: location of the user
+     * @param stationPoint: location of the actual station
+     * @return distance between two locations in km
      */
     fun calculateDistance(userPoint: Location, stationPoint: Location): Double{
         val theta = userPoint.longitude - stationPoint.longitude

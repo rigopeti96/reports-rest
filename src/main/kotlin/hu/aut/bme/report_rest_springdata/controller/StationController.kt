@@ -6,6 +6,7 @@ import hu.aut.bme.report_rest_springdata.repository.StationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
 import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
+import hu.aut.bme.report_rest_springdata.data.response.StationList
 import hu.aut.bme.report_rest_springdata.repository.StopRepository
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.slf4j.LoggerFactory
@@ -62,7 +63,8 @@ class StationController {
     }
 
     /**
-     * @param
+     *
+     * @param stationRequest: request bod
      * @return
      */
     @GetMapping("/getStationsByDistance")
@@ -71,21 +73,19 @@ class StationController {
         logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
         val userLocation = Location(stationRequest.latitude, stationRequest.longitude)
         val stopList = stopStationRepository.findAll()
-        logger.info("Stop list size: ${stopList.size}")
-        var foundCounter = 0
+
+        val responseList = ArrayList<Stops>()
         if(stopList.size > 0){
             for(i in 0 until stopList.size){
                 val calcDist = DistanceCalculator.calculateDistance(userLocation, Location(stopList[i]!!.stop_lat, stopList[i]!!.stop_lon))
                 if(calcDist < stationRequest.distance){
-                    foundCounter++
+                    responseList.add(stopList[i]!!)
                     logger.info("Station found! Station name: ${stopList[i]!!.stop_name}, distance: $calcDist")
                 }
             }
         }
 
-        logger.info("Found counter value: $foundCounter")
-
-        return ResponseEntity.badRequest().body(MessageResponse("Request done, see logs!"))
+        return ResponseEntity.ok().body(StationList(responseList))
 
     }
 
