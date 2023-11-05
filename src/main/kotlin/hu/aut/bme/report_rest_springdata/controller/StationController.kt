@@ -69,7 +69,17 @@ class StationController {
      */
     @GetMapping("/getStationsByDistance")
     @PreAuthorize("hasRole('USER')")
-    fun getStationsByDistance(@RequestBody stationRequest: StationRequest): ResponseEntity<*> {
+    fun getStationsByDistance(
+        @RequestParam(name = "latitude") latitude: Double,
+        @RequestParam(name = "longitude") longitude: Double,
+        @RequestParam(name = "distance") distance: Double
+    ): ResponseEntity<*> {
+
+        val stationRequest = StationRequest(
+            latitude,
+            longitude,
+            distance
+        )
         logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
         val userLocation = Location(stationRequest.latitude, stationRequest.longitude)
         val stopList = stopStationRepository.findAll()
