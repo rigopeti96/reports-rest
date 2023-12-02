@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class UserUnitTests {
+class UserUnitTest {
     private val name = "Test User"
     private val username = "testUser"
     private val password = "testuser"
@@ -38,7 +38,7 @@ class UserUnitTests {
      */
     @Test
     fun createUserTest(){
-        val requestBuilder = createTestUser()
+        val requestBuilder = createTestUser(false)
 
         val result = mockMvc.perform(requestBuilder).andReturn()
         val response = result.response
@@ -55,7 +55,7 @@ class UserUnitTests {
      */
     @Test
     fun recreateUserTest(){
-        val requestBuilder = createTestUser()
+        val requestBuilder = createTestUser(false)
 
         val exception = assertThrows(Exception::class.java) {
             val result = mockMvc.perform(requestBuilder).andReturn()
@@ -73,7 +73,7 @@ class UserUnitTests {
      */
     @Test
     fun recreateUserWithSameEmailTest(){
-        val requestBuilder = createTestUser()
+        val requestBuilder = createTestUser(false)
 
         val exception = assertThrows(Exception::class.java) {
             val result = mockMvc.perform(requestBuilder).andReturn()
@@ -84,19 +84,42 @@ class UserUnitTests {
 
         assertTrue(actualMessage!!.contains(expectedMessage))
     }
+    /**
+     * Test case: create a user then create again with same e-mail address
+     * Expected result: method returns with exception
+     */
+    @Test
+    fun recreateUserWithoutRole(){
+        val requestBuilder = createTestUser(true)
+
+        val exception = assertThrows(Exception::class.java) {
+            val result = mockMvc.perform(requestBuilder).andReturn()
+        }
+
+        val expectedMessage = "Error: Role is not found."
+        val actualMessage = exception.message
+
+        assertTrue(actualMessage!!.contains(expectedMessage))
+    }
 
     /**
      * Create test user
+     * @param isTestWithoutRole: decide if the message should contain role or not
      * @return result of mock mvc request builder
      */
-    private fun createTestUser(): MockHttpServletRequestBuilder{
-        val signUpRequestString = "{" +
+    private fun createTestUser(isTestWithoutRole: Boolean): MockHttpServletRequestBuilder{
+        var signUpRequestString = "{" +
                 "\"name\" = $name," +
                 "\"username\" = $username," +
                 "\"password\" = $password," +
-                "\"email\" = $email," +
-                "\"roles\" = $roles," +
-                "}"
+                "\"email\" = $email"
+        signUpRequestString = if(isTestWithoutRole){
+            "$signUpRequestString}"
+        } else {
+            "$signUpRequestString," +
+                    "\"roles\" = $roles"+
+                    "}"
+        }
 
         return MockMvcRequestBuilders
                 .post("api/auth/signup")
