@@ -1,9 +1,7 @@
 package hu.aut.bme.report_rest_springdata
 
 import hu.aut.bme.report_rest_springdata.gtfshandler.CSVParser
-import hu.aut.bme.report_rest_springdata.repository.StopRepository
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
