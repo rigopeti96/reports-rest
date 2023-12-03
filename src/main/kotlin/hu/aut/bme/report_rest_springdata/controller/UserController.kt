@@ -2,7 +2,7 @@ package hu.aut.bme.report_rest_springdata.controller
 
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
-import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
+import hu.aut.bme.report_rest_springdata.data.response.MessageResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.crypto.password.PasswordEncoder

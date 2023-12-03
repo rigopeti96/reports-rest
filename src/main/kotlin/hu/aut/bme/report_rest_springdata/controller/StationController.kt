@@ -5,7 +5,6 @@ import hu.aut.bme.report_rest_springdata.collections.Stops
 import hu.aut.bme.report_rest_springdata.repository.StationRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
-import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.data.response.StationList
 import hu.aut.bme.report_rest_springdata.repository.StopRepository
 import hu.aut.bme.report_rest_springdata.station.Location
@@ -32,27 +31,6 @@ class StationController {
     private lateinit var stopStationRepository: StopRepository
 
     /**
-     * Send the stations' data which are closer than stationRequest.distance attribute
-     * @param stationRequest: Request from user contains position data and distance
-     * @return list of station which distance's is lower than the radius
-     */
-    /*@GetMapping("/getStations")
-    fun getStations(stationRequest: StationRequest): ArrayList<Station>{
-        logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
-        val locations = stopStationRepository.findAll()
-        val responseStations = ArrayList<Station>()
-
-        for(i in 0 until locations.size){
-            val location = Location(locations[i]!!.latitude, locations[i]!!.longitude)
-            if(DistanceCalculator.calcDistance(location, stationRequest) <= stationRequest.distance){
-                responseStations.add(locations[i]!!)
-            }
-        }
-
-        return responseStations
-    }*/
-
-    /**
      * Send all of the stations'
      * @return list of all stations
      */
@@ -64,7 +42,9 @@ class StationController {
 
     /**
      *
-     * @param stationRequest: request bod
+     * @param latitude: request bod
+     * @param longitude: request bod
+     * @param distance: request bod
      * @return
      */
     @GetMapping("/getStationsByDistance")
@@ -80,7 +60,7 @@ class StationController {
             longitude,
             distance
         )
-        logger.info("statinon request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
+        logger.info("station request values: ${stationRequest.latitude}, ${stationRequest.longitude}, ${stationRequest.distance}")
         val userLocation = Location(stationRequest.latitude, stationRequest.longitude)
         val stopList = stopStationRepository.findAll()
 
