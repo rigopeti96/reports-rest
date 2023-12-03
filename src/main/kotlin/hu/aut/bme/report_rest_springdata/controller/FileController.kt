@@ -1,11 +1,14 @@
 package hu.aut.bme.report_rest_springdata.controller
 
+import hu.aut.bme.report_rest_springdata.collections.Station
 import hu.aut.bme.report_rest_springdata.collections.Stops
 import hu.aut.bme.report_rest_springdata.exception.InsertZipIntoDestinationFolderException
 import hu.aut.bme.report_rest_springdata.gtfshandler.CSVParser
 import hu.aut.bme.report_rest_springdata.gtfshandler.Unzipper
+import hu.aut.bme.report_rest_springdata.repository.StationRepository
 import hu.aut.bme.report_rest_springdata.repository.StopRepository
 import hu.aut.bme.report_rest_springdata.repository.UserRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -27,6 +30,9 @@ import java.lang.Exception
 class FileController {
     @Autowired
     private lateinit var stopRepository: StopRepository
+
+    @Autowired
+    private lateinit var stationRepository: StationRepository
     /**
      * Get the new BKK GTFS file and undzip it
      * @param uploadedZip: the new ZIP archive uploaded in webapp
@@ -48,7 +54,12 @@ class FileController {
         return try {
             Unzipper.unzip("actualGtfsData.zip")
             stopRepository.deleteAll()
+            val stationList = stationRepository.findAll()
             val stops: MutableList<Stops> = CSVParser.readLineByLineExample("stops.txt")
+            for(i in 0 until stops.size){
+                val actStop = stops[i]
+                actStop.type = findBaseStationType(stationList, actStop.stop_lat, actStop.stop_lon)
+            }
             saveStops(stops)
             ResponseEntity("Upload was successful", HttpStatus.OK)
         } catch (e: IOException){
@@ -69,7 +80,16 @@ class FileController {
         } catch (e: Exception){
             println(e)
         }
+    }
 
+    private fun findBaseStationType(stationList: List<Station?>, latitude: Double, longitude: Double): String{
+        for(i in stationList.indices){
+            if(stationList[i]!!.latitude == latitude && stationList[i]!!.longitude == longitude){
+                return stationList[i]!!.stopColorType
+            }
+        }
+
+        return ""
     }
 
     /**
@@ -83,5 +103,9 @@ class FileController {
         } catch (e: Exception){
             throw InsertZipIntoDestinationFolderException("Insert Zip into destination folder was unsuccessful!", e)
         }
+    }
+
+    companion object {
+        private val logger = LoggerFactory.getLogger(FileController::class.java)
     }
 }

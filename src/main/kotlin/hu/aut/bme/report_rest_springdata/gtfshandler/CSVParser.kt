@@ -63,7 +63,8 @@ object CSVParser {
             id,
             name,
             lat,
-            lon
+            lon,
+            ""
         )
     }
 

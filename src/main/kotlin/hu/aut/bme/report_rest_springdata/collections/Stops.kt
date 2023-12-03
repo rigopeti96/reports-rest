@@ -10,7 +10,8 @@ data class Stops(
     val stop_id: String,
     var stop_name: String,
     var stop_lat: Double,
-    var stop_lon: Double
+    var stop_lon: Double,
+    var type: String
 ){
     override fun hashCode(): Int {
         val prime = 31
