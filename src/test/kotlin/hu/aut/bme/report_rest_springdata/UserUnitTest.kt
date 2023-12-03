@@ -3,15 +3,22 @@ package hu.aut.bme.report_rest_springdata
 import hu.aut.bme.report_rest_springdata.repository.RoleRepository
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
+import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.web.context.WebApplicationContext
 
 
 @SpringBootTest
@@ -26,11 +33,21 @@ class UserUnitTest {
 
     private val expectedSuccessfulMessage = "User registered successfully!"
 
-    @Autowired
     private lateinit var mockMvc: MockMvc
 
     @Autowired
     private lateinit var roleRepository: RoleRepository
+
+    @Autowired
+    private lateinit var context: WebApplicationContext
+
+    @BeforeEach
+    fun setup() {
+        mockMvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply<DefaultMockMvcBuilder>(springSecurity())
+            .build()
+    }
 
     /**
      * Test case: create a user
@@ -108,6 +125,11 @@ class UserUnitTest {
      * @return result of mock mvc request builder
      */
     private fun createTestUser(isTestWithoutRole: Boolean): MockHttpServletRequestBuilder{
+        mockMvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply<DefaultMockMvcBuilder>(springSecurity())
+            .build()
+
         var signUpRequestString = "{" +
                 "\"name\" = $name," +
                 "\"username\" = $username," +
@@ -122,7 +144,7 @@ class UserUnitTest {
         }
 
         return MockMvcRequestBuilders
-                .post("api/auth/signup")
+                .post("/api/auth/signup")
                 .accept(MediaType.APPLICATION_JSON).content(signUpRequestString)
                 .contentType(MediaType.APPLICATION_JSON)
     }

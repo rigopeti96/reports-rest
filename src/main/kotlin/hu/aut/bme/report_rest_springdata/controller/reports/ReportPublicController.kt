@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/api/public/reports")
@@ -28,7 +30,19 @@ class ReportPublicController {
      */
     @GetMapping("/getAllReports")
     fun getAllReports(): List<Report?>{
-        return reportRepository.findAll()
+        val responseReports = ArrayList<Report>()
+        val reports = reportRepository.findAll()
+
+        if(reports.size > 0){
+            for(i in 0 until reports.size){
+                if(reports[i]!!.reportDateUntil > LocalDateTime.now()){
+                    responseReports.add(reports[i]!!)
+                    logger.info("Report found! Report type: ${reports[i]!!.reportType}")
+                }
+
+            }
+        }
+        return responseReports
     }
 
     /**
@@ -54,10 +68,13 @@ class ReportPublicController {
         if(reports.size > 0){
             for(i in 0 until reports.size){
                 val calcDist = DistanceCalculator.calculateDistance(userLocation, Location(reports[i]!!.latitude, reports[i]!!.longitude))
-                if(calcDist < stationRequest.distance){
-                    responseReports.add(reports[i]!!)
-                    logger.info("Station found! Station name: ${reports[i]!!.reportType}, distance: $calcDist")
+                if(reports[i]!!.reportDateUntil > LocalDateTime.now()){
+                    if(calcDist < stationRequest.distance){
+                        responseReports.add(reports[i]!!)
+                        logger.info("Station found! Station name: ${reports[i]!!.reportType}, distance: $calcDist")
+                    }
                 }
+
             }
         }
         return ResponseEntity.ok().body(responseReports)
