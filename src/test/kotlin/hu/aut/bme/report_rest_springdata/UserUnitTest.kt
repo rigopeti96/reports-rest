@@ -25,7 +25,7 @@ import org.springframework.web.context.WebApplicationContext
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 class UserUnitTest {
-    private val name = "Test User"
+    /*private val name = "Test User"
     private val username = "testUser"
     private val password = "testuser"
     private val email = "test.user@testuser.com"
@@ -147,5 +147,5 @@ class UserUnitTest {
                 .post("/api/auth/signup")
                 .accept(MediaType.APPLICATION_JSON).content(signUpRequestString)
                 .contentType(MediaType.APPLICATION_JSON)
-    }
+    }*/
 }

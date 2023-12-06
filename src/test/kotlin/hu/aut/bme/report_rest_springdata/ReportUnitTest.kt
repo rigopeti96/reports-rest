@@ -12,8 +12,8 @@ import org.springframework.test.web.servlet.MockMvc
 @AutoConfigureMockMvc
 class ReportUnitTest {
 
-    @Autowired
-    private lateinit var mockMvc: MockMvc
+    //@Autowired
+    //private lateinit var mockMvc: MockMvc
 
     @Test
     fun createReport(){

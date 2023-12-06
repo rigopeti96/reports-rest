@@ -20,7 +20,8 @@ spring:
   data:
     mongodb:
       database: trawell
-      host: localhost
+      #host: localhost
+      host: host.docker.internal
       port: 27017
 aut:
   app:

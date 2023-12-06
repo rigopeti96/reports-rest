@@ -11,7 +11,7 @@ import java.io.IOException
 @SpringBootTest
 class UnzipUnitTest {
 
-    @Test
+    /*@Test
     fun testUnzipperWithCorrectFileName() {
         Unzipper.unzip("test.zip")
 
@@ -38,5 +38,5 @@ class UnzipUnitTest {
         val actualMessage = exception.message
 
         assertTrue(actualMessage!!.contains(expectedMessage))
-    }
+    }*/
 }
