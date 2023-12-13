@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.GrantedAuthority
 import java.util.stream.Collectors
 import hu.aut.bme.report_rest_springdata.data.response.JwtResponse
-import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
+import hu.aut.bme.report_rest_springdata.data.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.users.*
 import org.springframework.web.bind.annotation.*
 import java.util.function.Consumer

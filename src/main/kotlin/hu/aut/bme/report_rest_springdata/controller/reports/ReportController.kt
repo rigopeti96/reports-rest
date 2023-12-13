@@ -4,7 +4,7 @@ import hu.aut.bme.report_rest_springdata.collections.Report
 import hu.aut.bme.report_rest_springdata.data.request.ReportUpdateRequest
 import hu.aut.bme.report_rest_springdata.repository.ReportRepository
 import hu.aut.bme.report_rest_springdata.data.request.StationRequest
-import hu.aut.bme.report_rest_springdata.data.request.response.MessageResponse
+import hu.aut.bme.report_rest_springdata.data.response.MessageResponse
 import hu.aut.bme.report_rest_springdata.station.Location
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

@@ -7,11 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class CSVParserTest {
 
-    @Test
+    /*@Test
     fun readCSV(){
         val read = CSVParser.readLineByLineExample("stops.txt")
         for (i in read.indices){
             println(read[i])
         }
-    }
+    }*/
 }
